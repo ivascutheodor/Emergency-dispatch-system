@@ -1,0 +1,46 @@
+Name: Ivascu Theodor Octavian
+Group: 313CD
+
+
+Project Overview
+This project implements a simulation of the Romanian 112 emergency dispatch system. The application manages emergency units and incidents, organizing them by priority levels and automatically allocating resources. The core logic focuses on efficient data handling using specialized data structures such as circular doubly linked lists with sentinels, queues, and stacks.
+
+Modularity
+I have organized the implementation into separate modules for better
+ maintainability and clarity:
+
+* main.c: The entry point of the program. It handles file I/O operations
+ (tema1.in / tema1.out) and the main command loop that parses the N operations
+* structures.h: The core header containing all mandatory structure
+ definitions for units, incidents, and interventions.
+* add_incident.c / .h: Manages the initialization of the system and the
+ addition of new incidents to the circular doubly linked list with a sentinel
+ node.
+* show_incident.c / .h: Retrieves and prints data for a given incident.
+* check_units_availability.c / .h: Implements a queue to manage available
+ emergency units in the order they were read from the input file.
+* dispatch.c / .h: The core part that matches the most urgent pending
+ incidents with available units.
+* undo_last_dispatch.c / .h: Utilizes a stack to reverse the last active
+ dispatch. It restores the unit's availability and moves the incident back to
+ the front of its priority queue.
+* solved_incident.c / .h: Marks an incident as "solved".
+* show_unit.c / .h: Finds and prints the current type and availability state
+ of a specific unit.
+* show_interventions.c / .h: Displays the complete history of assignments
+ stored in the circular doubly linked list of interventions.
+
+Implementation Details 
+* Data Structures: Incidents and interventions are strictly stored in circular
+ doubly linked lists with sentinels.
+* Memory Efficiency: Incident descriptions are dynamically allocated using
+ exactly (strlen + 1) bytes
+* Pointer Queuing: Priority queues and the availability queue store pointers
+ to existing structures rather than copying data, ensuring synchronization
+* No Global Variables: The project avoids static or global variables,
+ passing the system state through pointers
+
+Memory Management
+At the end of the program, all dynamically allocated memory is freed,including
+all list nodes, queue nodes, the undo stack, and strings. 
+
